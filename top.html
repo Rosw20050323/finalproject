@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f4ef;
+        }
+        header {
+            background-color: #000;
+            color: #fff;
+            padding: 10px 20px;
+        }
+        .logo {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .logo img {
+            height: 100px;
+            width: 100px;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 0px;
+        }
+        nav a {
+            padding: 10px 30px;
+            display: inline-block;
+            color: #fcf2f2;
+            text-decoration: none;
+        }
+        nav a:hover {
+            background-color: #c0b9bb;
+            color: rgb(56, 50, 53);
+        }
+        .main-banner {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 400px;
+            background-color: #e6dbd1;
+            margin-top: 10px;
+        }
+        .main-banner img {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 10px;
+        }
+        .categories {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+        }
+        .categories div {
+            width: 30%;
+            text-align: center;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            background-color: #fff;
+        }
+        .categories div:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .product-gallery {
+            padding: 20px;
+            background-color: #f4f4f4;
+            margin: 20px 0;
+        }
+        .products {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .product-card {
+            width: 270px;
+            height: auto;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            text-align: center;
+            padding: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .product-image {
+            width: 250px;
+            height: 300px;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 10px;
+        }
+        .product-card h3 {
+            font-size: 1.2em;
+            color: #333;
+            margin: 5px 0; 
+        }
+        .product-card p {
+            font-size: 1em;
+            color: #888;
+            margin: 5px 0; 
+        }
+        .product-card button {
+            padding: 8px 12px; 
+            margin-top: 10px; 
+            background-color: #000;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .product-card button:hover {
+            background-color: #333;
+        }
+
+        .cart-icon {
+            position: absolute; /* 使用絕對定位 */
+            top: 10px; /* 距離上方 */
+            right: 10px; /* 距離右側 */
+            width: 60px; /* 圖標寬度 */
+            height: 60px; /* 圖標高度 */
+        }
+
+        .cart-icon img {
+            width: 100%; /* 圖標自適應寬度 */
+            height: 100%; /* 圖標自適應高度 */
+            object-fit: contain; /* 保持圖像比例 */
+        }
+
+        .cart-count {
+            position: absolute; /* 絕對定位 */
+            top: -5px; /* 數字的位置 */
+            right: -5px;
+            background-color: red; /* 數字背景顏色 */
+            color: white; /* 數字顏色 */
+            font-size: 12px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%; /* 圓形 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+        }
+        footer {
+            background-color: #000;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        footer a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+    
+    </style>
+</head>
+<body>
+    
+    <header>
+        <div class="logo">
+            <img src="image/logo.jpg" alt="Logo">
+        </div>
+        <nav>
+            <a href="index.html">首頁</a>
+            <a href="info.html">購物須知</a>
+            <a href="top.html">上身</a>
+            <a href="bottom.html">下身</a>
+            <a href="contact.html">客服中心</a> <!-- 更新此連結 -->
+        </nav>
+
+        <!-- 購物車圖標 -->
+        <div class="cart-icon">
+            <a href="cart.html">
+                <img src="image/cart.jpg" alt="購物車">
+                <span class="cart-count">0</span>
+            </a>
+        </div>
+    </header>
+
+    <section class="product-gallery">
+        <h2 style="text-align: center; margin: 20px 0;">TOP</h2>
+        <div class="products">
+            <a href="up2.html" class="product-card">
+                <img src="image/up2.jpg" alt="商品1" class="product-image">
+                <h3>冬季羽絨服</h3>
+                <p>NT$ 899</p>
+                <button>加入購物車</button>
+            </a>
+            <a href="up3.html" class="product-card">
+                <img src="image/up3.jpg" alt="商品2" class="product-image">
+                <h3>韓系灰色大衣</h3>
+                <p>NT$ 699</p>
+                <button>加入購物車</button>
+            </a>
+            <a href="up4.html" class="product-card">
+                <img src="image/up4.jpg" alt="商品3" class="product-image">
+                <h3>美式撞色拼接大學踢</h3>
+                <p>NT$ 599</p>
+                <button>加入購物車</button>
+            </a>
+        </div>
+    </section>
+</body>
+</html>

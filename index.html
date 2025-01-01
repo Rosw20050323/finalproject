@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>衣服電商網站</title>
+     <!-- 購物車樣式 -->
+     <link rel="stylesheet" href="cart.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f4ef;
+        }
+        header {
+            background-color: #000;
+            color: #fff;
+            padding: 10px 20px;
+        }
+        .logo {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .logo img {
+            height: 100px;
+            width: 100px;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 0px;
+        }
+        nav a {
+            padding: 10px 30px;
+            display: inline-block;
+            color: #fcf2f2;
+            text-decoration: none;
+            
+        }
+        nav a:hover {
+            background-color: #c0b9bb;
+            color: rgb(56, 50, 53);
+        }
+        
+
+        .main-banner {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 400px;
+            background-color: #e6dbd1;
+            margin-top: 10px;
+        }
+        .main-banner img {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 10px;
+        }
+       
+       
+
+        .limited-ad {
+            text-align: center;
+            background-color: #e49b9b;
+            color: white;
+            padding: 20px;
+            margin: 20px 0;
+}
+
+        .product-gallery {
+            padding: 20px;
+            background-color: #f4f4f4;
+            margin: 20px 0;
+        }
+        .products {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .product-card {
+            width: 270px;
+            height: auto;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            text-align: center;
+            padding: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .product-image {
+            width: 250px;
+            height: 300px;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 10px;
+        }
+        .product-card h3 {
+            font-size: 1.2em;
+            color: #333;
+            margin: 5px 0; 
+        }
+
+        .product-card p {
+            font-size: 1em;
+            color: #888;
+            margin: 5px 0; 
+        }
+        .product-card button {
+            padding: 8px 12px; 
+            margin-top: 10px; 
+            background-color: #000;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .product-card button:hover {
+            background-color: #817d7d;
+        }
+        .cart-icon {
+            position: absolute; /* 使用絕對定位 */
+            top: 10px; /* 距離上方 */
+            right: 10px; /* 距離右側 */
+            width: 60px; /* 圖標寬度 */
+            height: 60px; /* 圖標高度 */
+            
+        }
+
+        .cart-icon img {
+            width: 100%; /* 圖標自適應寬度 */
+            height: 100%; /* 圖標自適應高度 */
+            object-fit: contain; /* 保持圖像比例 */
+            transition: transform 0.3s ease;
+
+        }
+       
+
+        .cart-count {
+            position: absolute; /* 絕對定位 */
+            top: -5px; /* 數字的位置 */
+            right: -5px;
+            background-color: red; /* 數字背景顏色 */
+            color: white; /* 數字顏色 */
+            font-size: 12px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%; /* 圓形 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+        }
+
+        footer {
+            background-color: #000;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        footer a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <!-- LOGO 區塊 -->
+        <div class="logo">
+            <a href="index.html">
+                <img src="image/logo.jpg" alt="網站 LOGO">
+            </a>
+        </div>
+    
+        <!-- 購物車圖標 -->
+        <div class="cart-icon">
+            <a href="cart.html">
+                <img src="image/cart.jpg" alt="購物車">
+                <span class="cart-count">0</span>
+            </a>
+        </div>
+    
+        <!-- 導覽連結 -->
+        <nav>
+            <a href="index.html">首頁</a>
+            <a href="info.html">購物須知</a>
+            <a href="top.html">上身</a>
+            <a href="bottom.html">下身</a>
+            <a href="contact.html">客服中心</a>
+            <a href="login.html">會員登入</a>
+            <a href="profile.html">會員資料</a>
+
+        </nav>
+    </header>
+    
+
+    <div class="main-banner">
+        <img src="image/up1.jpg" alt="大型 Model 照">
+    </div>
+
+    <div class="limited-ad">
+        <p>限時優惠商品！</p>
+        <span id="countdown">00:00:00</span>
+    </div>
+    
+
+    <section class="product-gallery">
+        <h2 style="text-align: center; margin: 20px 0;">熱門商品</h2>
+        <div class="products">
+            <a href="up2.html" class="product-card">
+                <img src="image/up2.jpg" alt="商品1" class="product-image">
+                <h3>冬季羽絨服</h3>
+                <p>NT$ 899</p>
+                <button>查看更多</button>
+            </a>
+            <a href="up3.html" class="product-card">
+                <img src="image/up3.jpg" alt="商品2" class="product-image">
+                <h3>韓系灰色大衣</h3>
+                <p>NT$ 699</p>
+                <button>查看更多</button>
+            </a>
+            <a href="down1.html" class="product-card">
+                <img src="image/down1.jpg" alt="商品3" class="product-image">
+                <h3>復古高腰牛仔裙</h3>
+                <p>NT$ 499</p>
+                <button>查看更多</button>
+            </a>
+        </div>
+    </section>
+
+    
+        <footer>
+            <p>
+                <a href="contact.html">客服中心</a> | 
+                <a href="info.html">關於我們</a>
+            </p>
+            <p>&copy; 2024 衣服電商網站. All rights reserved.</p>
+        </footer>
+      <script>  const countdownElement = document.getElementById('countdown');
+let timeRemaining = 60 * 10; // 十分鐘倒數（以秒為單位）
+
+function updateCountdown() {
+    const hours = Math.floor(timeRemaining / 3600).toString().padStart(2, '0');
+    const minutes = Math.floor((timeRemaining % 3600) / 60).toString().padStart(2, '0');
+    const seconds = (timeRemaining % 60).toString().padStart(2, '0');
+
+    countdownElement.textContent = `${hours}:${minutes}:${seconds}`;
+
+    if (timeRemaining > 0) {
+        timeRemaining--; // 倒數減 1
+    } else {
+        countdownElement.textContent = '優惠已結束';
+    }
+}
+
+// 每秒更新一次倒數
+setInterval(updateCountdown, 1000);
+updateCountdown();
+    </script>
+
+    <script>
+        const addToCartButtons = document.querySelectorAll('.product-card button');
+        const cartCount = document.querySelector('.cart-count');
+        let cartItemCount = 0;
+
+        addToCartButtons.forEach((button) => {
+            button.addEventListener('click', () => {
+                // 每次點擊，購物車數量增加
+                cartItemCount++;
+                // 更新購物車數量到畫面上
+                cartCount.textContent = cartItemCount;
+                // 顯示增加後的數量（可選）
+                console.log(`目前購物車商品數量：${cartItemCount}`);
+              });
+        });
+
+    </script>
+   
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>會員登入</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f4ef;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.login-container {
+    background-color: #fff;
+    padding: 30px;  /* 增加內邊距，讓框框不會碰到表單元素 */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: center;
+}
+
+.login-container h2 {
+    margin-bottom: 20px;
+}
+
+.login-container input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.login-container button {
+    width: 100%;
+    padding: 10px;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.login-container button:hover {
+    background-color: #333;
+}
+
+.login-container a {
+    display: block;
+    margin-top: 10px;
+    color: #888;
+    text-decoration: none;
+}
+
+.login-container a:hover {
+    color: #000;
+}
+
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>會員登入</h2>
+        <form id="login-form">
+            <input type="email" placeholder="請輸入電子郵件" id="email" required>
+            <input type="password" placeholder="請輸入密碼" id="password" required>
+            <button type="submit">登入</button>
+        </form>
+        <a href="register.html">還沒有帳號？註冊</a>
+    </div>
+    <script>
+        document.getElementById('login-form').addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            const storedEmail = localStorage.getItem('userEmail');
+            const storedPassword = localStorage.getItem('userPassword');
+
+            if (email === storedEmail && password === storedPassword) {
+                alert('登入成功！');
+                window.location.href = 'index.html';  // 登入後跳轉到首頁
+
+            } else {
+                alert('電子郵件或密碼錯誤！');
+            }
+        });
+        if (email === storedEmail && password === storedPassword) {
+    alert('登入成功！');
+    window.location.href = 'profile.html';  // 登入後跳轉到會員資料頁面
+} else {
+    alert('電子郵件或密碼錯誤！');
+}
+
+    </script>
+</body>
+</html>
+

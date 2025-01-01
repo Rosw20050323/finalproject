@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>會員資料</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f4ef;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .profile-container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+
+        .profile-container h2 {
+            margin-bottom: 20px;
+        }
+
+        .profile-container p {
+            margin: 10px 0;
+            color: #555;
+        }
+
+        .profile-container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #000;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .profile-container button:hover {
+            background-color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <h2>會員資料</h2>
+        <p>電子郵件：<span id="user-email"></span></p>
+        <button id="logout-btn">登出</button>
+    </div>
+
+    <script>
+        // 獲取會員資訊
+        const userEmail = localStorage.getItem('userEmail');
+
+        // 檢查是否已登入
+        if (!userEmail) {
+            alert('請先登入！');
+            window.location.href = 'login.html';  // 如果未登入，跳轉到登入頁面
+        } else {
+            // 顯示會員資料
+            document.getElementById('user-email').innerText = userEmail;
+        }
+
+        // 登出功能
+        document.getElementById('logout-btn').addEventListener('click', () => {
+            localStorage.removeItem('userEmail');
+            localStorage.removeItem('userPassword');
+            alert('已登出！');
+            window.location.href = 'login.html';  // 登出後跳轉到登入頁面
+        });
+    </script>
+</body>
+</html>

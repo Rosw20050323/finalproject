@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>購物車</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f4ef;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #000;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        header .logo img {
+            height: 80px;
+            width: 80px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        .cart-content {
+            margin: 20px;
+        }
+
+        .cart-items {
+            margin-bottom: 20px;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .cart-item img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .cart-summary {
+            margin-top: 20px;
+            text-align: right;
+        }
+
+        .payment-method, .delivery {
+            margin: 20px;
+        }
+
+        .checkout-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 40px;
+            margin-bottom: 50px;
+        }
+
+        .checkout-button {
+            background-color: black;
+            color: white;
+            border: 1px solid black;
+            padding: 10px 50px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .checkout-button:hover {
+            background-color: darkgray;
+        }
+
+        footer {
+            background-color: #000;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        footer a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="image/logo.jpg" alt="Logo" />
+        </div>
+        <nav>
+            <a href="index.html">首頁</a>
+            <a href="info.html">購物須知</a>
+            <a href="contact.html">客服中心</a>
+        </nav>
+    </header>
+    <main>
+        <section class="cart-content">
+            <h1>購物車內容</h1>
+            <div class="cart-items"></div>
+            <div class="cart-summary">
+                <input type="text" id="coupon-code" placeholder="輸入優惠券代碼">
+                <button id="apply-coupon">套用優惠券</button>
+                <p>總金額： <span id="total-price">0</span></p>
+            </div>
+        </section>
+        <section class="delivery">
+            <h2>付款及運送方式</h2>
+            <div class="delivery-options">
+                <label><input type="radio" name="delivery" value="store"> 超商取貨</label>
+                <label><input type="radio" name="delivery" value="home"> 宅配到府</label>
+            </div>
+        </section>
+        <section class="payment-method">
+            <h3>選擇付款方式</h3>
+            <label>
+                <input type="radio" name="payment" value="credit-card" checked>
+                信用卡 (Apple Pay)
+            </label>
+            <label>
+                <input type="radio" name="payment" value="銀行轉帳">
+                銀行轉帳
+            </label>
+            <label>
+                <input type="radio" name="payment" value="貨到付款">
+                貨到付款
+            </label>
+            <label>
+                <input type="radio" name="payment" value="其他電子支付">
+                其他電子支付 (Line Pay/街口支付)
+            </label>
+        </section>
+        <div class="checkout-container">
+            <button class="checkout-button" id="checkout-button">下一步</button>
+        </div>
+    </main>
+    <footer>
+        <p>
+            <a href="contact.html">客服中心</a> | 
+            <a href="info.html">關於我們</a>
+        </p>
+        <p>&copy; 2024 衣服電商網站. All rights reserved.</p>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('JavaScript 檔案已正確載入！');
+        
+            const cartItemsContainer = document.querySelector('.cart-items');
+            const totalPriceElement = document.querySelector('#total-price');
+            const couponInput = document.querySelector('#coupon-code');
+            const applyCouponButton = document.querySelector('#apply-coupon');
+            const checkoutButton = document.querySelector('#checkout-button');
+            const paymentOptions = document.querySelectorAll('input[name="payment"]');
+            
+            let discount = 0;
+            let selectedPayment = 'credit-card'; // 預設付款方式
+        
+            // 從 localStorage 獲取購物車資料
+            let cartItems = JSON.parse(localStorage.getItem('cart')) || [
+                { id: 1, name: '商品名稱', price: 899, quantity: 1 },
+                { id: 2, name: '商品名稱2', price: 699, quantity: 1 },
+                { id: 3, name: '商品名稱3', price: 599, quantity: 1 },
+            ];
+        
+            // 渲染購物車商品
+            function renderCart() {
+                cartItemsContainer.innerHTML = '';
+                let totalPrice = 0;
+        
+                cartItems.forEach((item) => {
+                    const itemElement = document.createElement('div');
+                    itemElement.classList.add('cart-item');
+                    itemElement.innerHTML = `
+                        <div class="item-image">
+                            <img src="${item.image || 'default-image.png'}" alt="${item.name}">
+                        </div>
+                        <p class="item-name">${item.name}</p>
+                        <p class="price">NT$ ${item.price * item.quantity}</p>
+                        <div>
+                            <button class="decrease" data-id="${item.id}">-</button>
+                            <input type="number" class="quantity" value="${item.quantity}" min="1" data-id="${item.id}">
+                            <button class="increase" data-id="${item.id}">+</button>
+                        </div>
+                        <button class="remove-item" data-id="${item.id}">刪除</button>  <!-- 新增刪除按鈕 -->
+                    `;
+                    cartItemsContainer.appendChild(itemElement);
+        
+                    totalPrice += item.price * item.quantity;
+                });
+        
+                updateTotalPrice(totalPrice);
+            }
+        
+            // 更新總金額顯示
+            function updateTotalPrice(totalPrice) {
+                const finalPrice = Math.max(totalPrice - discount, 0); // 確保金額不小於 0
+                totalPriceElement.textContent = `NT$ ${finalPrice.toLocaleString()}`;
+            }
+        
+            // 增加/減少商品數量
+            cartItemsContainer.addEventListener('click', (e) => {
+                const target = e.target;
+                const itemId = parseInt(target.dataset.id);
+                const item = cartItems.find((item) => item.id === itemId);
+        
+                if (target.classList.contains('increase')) {
+                    item.quantity++;
+                } else if (target.classList.contains('decrease')) {
+                    item.quantity = Math.max(item.quantity - 1, 1);
+                } else if (target.classList.contains('remove-item')) { // 刪除商品
+                    cartItems = cartItems.filter(item => item.id !== itemId); // 刪除對應商品
+                    localStorage.setItem('cart', JSON.stringify(cartItems)); // 儲存至 localStorage
+                    renderCart(); // 重新渲染購物車
+                }
+        
+                localStorage.setItem('cart', JSON.stringify(cartItems)); // 儲存至 localStorage
+                renderCart(); // 重新渲染購物車
+            });
+        
+            // 實時更新商品數量 (輸入框)
+            cartItemsContainer.addEventListener('input', (e) => {
+                if (e.target.classList.contains('quantity')) {
+                    const itemId = parseInt(e.target.dataset.id);
+                    const item = cartItems.find((item) => item.id === itemId);
+                    item.quantity = Math.max(parseInt(e.target.value), 1);
+        
+                    localStorage.setItem('cart', JSON.stringify(cartItems)); // 儲存至 localStorage
+                    renderCart(); // 重新渲染購物車
+                }
+            });
+        
+            // 套用優惠券
+            applyCouponButton.addEventListener('click', () => {
+                const couponCode = couponInput.value.trim();
+                if (couponCode === 'DISCOUNT50') {
+                    discount = 50;
+                    alert('成功套用優惠券！折扣 NT$ 50');
+                } else {
+                    discount = 0;
+                    alert('無效的優惠券代碼');
+                }
+                renderCart();
+            });
+        
+            // 付款方式選擇
+            paymentOptions.forEach((option) => {
+                option.addEventListener('change', (e) => {
+                    selectedPayment = e.target.value;
+                    console.log(`已選擇付款方式：${selectedPayment}`);
+                });
+            });
+        
+            // 結帳按鈕處理
+            if (checkoutButton) {
+                checkoutButton.addEventListener('click', () => {
+                    const confirmation = confirm(`您選擇的付款方式是：${selectedPayment}，是否確認結帳？`);
+                    if (confirmation) {
+                        console.log('結帳完成');
+                    } else {
+                        console.log('結帳取消');
+                    }
+                });
+            }
+        
+            // 初始化購物車
+            renderCart();
+        });
+    </script>
+        
+</body>
+</html>
